@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>QLC+ Web API Test</title>
+<script type="text/javascript" src="./script.js"></script>
+
+<link rel="stylesheet" href="style.css">
+<body>
+
+<h2>Q Light Controller+ Web API test page</h2>
+
+<!-- ############## Project box to display what QLC+ is doing ####################### -->
+<div id="prjBox"><iframe name="projectFrame" src="" id="projectFrame"></iframe></div>
+
+<!-- ############## Websocket connection code ####################### -->
+QLC+ IP:
+<input type="text" id="qlcplusIP" value="127.0.0.1:9999"/>
+<input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);">
+<div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
+<br><br>
+
+<!-- ############## Project load code ####################### -->
+<form id="lpForm" onsubmit="loadProject()" method="POST" enctype="multipart/form-data" target="projectFrame">
+Load a project:
+<input id="loadTrigger" type="file" onchange="document.getElementById('submitTrigger').click();" name="qlcprj">
+<input id="submitTrigger" type="submit">
+</form>
+<br><br>
+
+<!-- ############## Individual API tests ####################### -->
+
+<table class="apiTable" width=45%>
+ <tr>
+  <th width=30%><b>API Function</b></th>
+  <th width=30%><b>Description</b></th>
+  <th width=40%><b>Result</b></th>
+ </tr>
+
+<!-- ############## Channels API tests ####################### -->
+
+ <tr>
+  <td colspan="3" align="center"><b>Channels APIs</b></td>
+ </tr>
+  <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestChannelsRange('getChannelsValues', 'chUniIdx', 'chDMXaddr', 'chRange');">getChannelsValues</div><br>
+    Universe index: <input id="chUniIdx" type="text" value="1" size="6"><br>
+    DMX start address: <input id="chDMXaddr" type="text" value="1" size="6"><br>
+    Channels count: <input id="chRange" type="text" value="16" size="6">
+  </td>
+  <td>Retrieve the specified number of DMX values for the given universe, starting at the given address.
+      Note that indices start from 1 and not from 0.</td>
+  <td><div id="requestChannelsRangeBox" style="height: 150px; overflow-y: scroll;"></div></td>
+ </tr>
+
+<!-- ############## Functions API tests ####################### -->
+
+ <tr>
+  <td colspan="3" align="center"><b>Function APIs</b></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsNumber');">getFunctionsNumber</div></td>
+  <td>Retrieve the number of functions loaded</td>
+  <td><div id="getFunctionsNumberBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsList');">getFunctionsList</div></td>
+  <td>Retrieve the list of functions with their ID and name</td>
+  <td><div id="getFunctionsListBox" style="height: 150px; overflow-y: scroll;"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getFunctionType', 'fTypeID');">getFunctionType</div><br>
+    Function ID: <input id="fTypeID" type="text" value="0" size="6">
+  </td>
+  <td>Retrieve the type of a function with the given ID</td>
+  <td><div id="getFunctionTypeBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getFunctionStatus', 'gfFuncID');">getFunctionStatus</div><br>
+    Function ID: <input id="gfFuncID" type="text" value="0" size="6">
+  </td>
+  <td>Retrieve the running status of a function with the given ID. Possible values are "Running", "Stopped" and "Undefined"</td>
+  <td><div id="getFunctionStatusBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWith2Params('setFunctionStatus', 'sfFuncID', 'sfStatus');">setFunctionStatus</div><br>
+    Function ID: <input id="sfFuncID" type="text" value="0" size="6"><br>
+    Status: <input id="sfStatus" type="text" value="0" size="6">
+  </td>
+  <td>Set the running status of a function with the given ID. Possible values are: 0 (stop) or 1 (run)</td>
+  <td></td>
+ </tr>
+
+<!-- ############## Widgets API tests ####################### -->
+
+ <tr>
+  <td colspan="3" align="center"><b>Virtual Console Widget APIs</b></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getWidgetsNumber');">getWidgetsNumber</div></td>
+  <td>Retrieve the number of widgets loaded</td>
+  <td><div id="getWidgetsNumberBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getWidgetsList');">getWidgetsList</div></td>
+  <td>Retrieve the list of Virtual Console Widgets with their ID and name</td>
+  <td><div id="getWidgetsListBox" style="height: 150px; overflow-y: scroll;"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetType', 'wTypeID');">getWidgetType</div><br>
+    Widget ID: <input id="wTypeID" type="text" value="0" size="6">
+  </td>
+  <td>Retrieve the type of a Virtual Console Widget with the given ID</td>
+  <td><div id="getWidgetTypeBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetStatus', 'wStatusID');">getWidgetStatus</div><br>
+    Widget ID: <input id="wStatusID" type="text" value="0" size="6">
+  </td>
+  <td>Retrieve the status of a Virtual Console Widget with the given ID</td>
+  <td><div id="getWidgetStatusBox" class="resultBox"></div></td>
+ </tr>
+
+<!-- ############## High rate API tests ####################### -->
+
+ <tr>
+  <td colspan="3" align="center"><b>High rate APIs</b></td>
+ </tr>
+ <tr>
+  <td colspan="3">Due to the nature of some type of transmissions (for example a slider changing rapidly),
+                  there are a few WebSocket operations stripped down to avoid useless overhead of data.<br>
+                  So, instead of transmitting every time the "QLC+API|API name" information, direct calls
+                  are here used to accomplish fast operations.
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:setSimpleDeskChannel('sdDMXAddress', 'sdDMXValue');">Simple Desk channel set</div><br>
+   Absolute DMX address: <input id="sdDMXAddress" type="text" value="1" size="6"><br>
+   Value: <input id="sdDMXValue" type="text" value="100" size="6">
+  </td>
+  <td colspan="2">
+   This API sets the value of a single channel of the QLC+ Simple Desk. The parameters to send are:<br>
+   <b>Absolute DMX address</b>: this is the address of the DMX channel you want to set. It is absolute in the sense
+   that the universe information is implicit in the address itself. So for example addresses on the first
+   universe will range from 1 to 512, while addresses on the second universe will range from 513 to 1024,
+   and so on.<br>
+   <b>Value</b>: the value of the DMX channel to set in a range from 0 to 255.
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:vcWidgetSetValue('basicWidgetID', 'basicWidgetValue');">Basic widget value set</div><br>
+   Widget ID: <input id="basicWidgetID" type="text" value="0" size="6"><br>
+   Value: <input id="basicWidgetValue" type="text" value="255" size="6">
+  </td>
+  <td colspan="2">
+    This API is the direct way to set a Virtual Console widget value. It can be used for Buttons, Sliders and
+    Audio Triggers. The value to set depends on the widget type itself. Buttons will only support values 255
+    (= button is pressed) and 0 (= button is released), Audio triggers will support values 0 (= off) and 255 (= on)
+    and Sliders will accept all the values in the 0-255 range.
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:vcCueListControl('clWidgetID', 'clOperation', 'clStep');">Cue list control</div><br>
+   Cue List ID: <input id="clWidgetID" type="text" value="0" size="6"><br>
+   Operation: <input id="clOperation" type="text" value="PLAY" size="6"><br>
+   Step (optional): <input id="clStep" type="text" value="1" size="6">
+  </td>
+  <td colspan="2">
+    This API demonstrates how to control a Virtual Console Cue List widget. The parameters to be used are:<br>
+    <b>Cue List ID</b>: The Cue List widget ID as retrieved with the 'getWidgetsList' API<br>
+    <b>Operation</b>: The Cue List operation to perform. Possible values are 'PLAY', 'NEXT', 'PREV' and 'STEP'.
+    Only the 'STEP' operation requires a third parameter. The 'PLAY' operation will stop the Cue List if called
+    twice.<br>
+    <b>Step</b>: The Cue List step index to play. Index starts from 0.
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:vcFrameControl('frWidgetID', 'frOperation');">Multipage frame control</div><br>
+   Frame ID: <input id="frWidgetID" type="text" value="0" size="6"><br>
+   Operation: <input id="frOperation" type="text" value="NEXT_PG" size="6">
+  </td>
+  <td colspan="2">
+    This API demonstrates how to change page of a Virtual Console Frame widget in multipage mode.
+    The parameters to be used are:<br>
+    <b>Frame ID</b>: The Frame widget ID as retrieved with the 'getWidgetsList' API<br>
+    <b>Operation</b>: The Frame operation to perform. Accepted values are 'NEXT_PG' and 'PREV_PG'.
+  </td>
+ </tr>
+
+</table>
+
+</body>
+</html>
