@@ -19,3 +19,7 @@ function addPoint(x, y){
 function mouseDragged() {
   addPoint(mouseX, mouseY)
 }
+
+function resetCanvas(){
+    savedPoint = []
+}
