@@ -9,6 +9,7 @@
 <body>
 
     <input type="button" id="resetButton" value="Reset Draw">
+    <input type="button" id="ToggleModeButton" value="Toggle Mode">
 
 </body>
 
@@ -18,6 +19,9 @@
 <script>
     const buttonReset = document.querySelector("#resetButton");
     buttonReset.addEventListener("click", resetCanvas);
+
+    const ToggleModeButton = document.querySelector("#ToggleModeButton");
+    ToggleModeButton.addEventListener("click", toggleMode);
 </script>
 
 </html>
