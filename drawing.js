@@ -10,6 +10,7 @@ let mode = "letter"
 
 
 let font;
+let sizeLetter = 100
 let points = []
 /* -------------------------------------------------------------------------- */
 /*                                   Draw P5                                  */
@@ -22,8 +23,6 @@ function preload() {
 function setup() {
     createCanvas(400, 400);
     textSize(12);
-
-    createLetterPoint("NOTHING", points)
 }
 
 function draw() {
@@ -82,16 +81,16 @@ function drawLetterMode(){
 /* -------------------------------------------------------------------------- */
 
 function addPoint(x, y){
-  savedPoint.push([x,y])
+    savedPoint.push([x,y])
 }
 
 function mouseDragged() {
-  addPoint(mouseX, mouseY)
+    addPoint(mouseX, mouseY)
 }
 
 function mouseReleased(){
     console.log(mouseX, mouseY)
-  addPoint(mouseX, mouseY)
+    addPoint(mouseX, mouseY)
 }
 
 function resetCanvas(){
@@ -125,11 +124,10 @@ function addAllElementArrayToAnotherArray(arraySrc, arrayDest){
 }
 
 
-function createLetterPoint(string, arrayDest){
-    let s = 100
-
-    //TODO Separate letter string
-    addAllElementArrayToAnotherArray(font.textToPoints("T", 50, 200,s, { sampleFactor:  0.2}), arrayDest)
-    addAllElementArrayToAnotherArray(font.textToPoints("A", 50 + s / 2, 200,s, { sampleFactor:  0.2}), arrayDest)
-    console.log(points)
+function createLetterPoint(myString, arrayDest){
+    console.log(typeof(myString), arrayDest)
+    arrayDest.length = 0
+    addAllElementArrayToAnotherArray(font.textToPoints(myString, 50, 200, sizeLetter, { sampleFactor:  0.2}), arrayDest)
+    // addAllElementArrayToAnotherArray(font.textToPoints("A", 50 + sizeLetter / 2, 200,sizeLetter, { sampleFactor:  0.2}), arrayDest)
+    console.log(arrayDest)
 }

@@ -11,6 +11,8 @@
     <input type="button" id="resetButton" value="Reset Draw">
     <input type="button" id="ToggleModeButton" value="Toggle Mode">
 
+    <input type="text" id="TEXT">
+    <input type="button" id="textValidation" value="OK">
 </body>
 
 <script src="drawing.js"></script>
@@ -21,6 +23,13 @@
 
     const ToggleModeButton = document.querySelector("#ToggleModeButton");
     ToggleModeButton.addEventListener("click", toggleMode);
+
+    const validTextButton = document.querySelector("#textValidation");
+    
+    validTextButton.addEventListener("click", () => { 
+        let valueText = document.querySelector("#TEXT").value
+        createLetterPoint(valueText, points) 
+    });
 </script>
 
 </html>
