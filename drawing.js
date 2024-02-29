@@ -6,42 +6,27 @@
 let savedPoint = []
 let circleSize = 20
 
-let mode = "point"
+let mode = "letter"
 
 
 let font;
-
+let points = []
 /* -------------------------------------------------------------------------- */
 /*                                   Draw P5                                  */
 /* -------------------------------------------------------------------------- */
 
 function preload() {
-  font = loadFont('font.ttf');
+    font = loadFont('font.ttf');
 }
 
 function setup() {
-  createCanvas(400, 400);
-  textSize(12);
+    createCanvas(400, 400);
+    textSize(12);
 
-
-  let points = font.textToPoints("tsasa a d", 50, 50,80, { sampleFactor:  0.2})
-  let previousPointX = 0
-  points.forEach(p =>  {
-    //   point(p.x, p.y);
-
-
-      if (p.x - previousPointX > 40 ) {
-          console.log("new space")
-      }
-
-      previousPointX = p.x
-
-  });
+    createLetterPoint("NOTHING", points)
 }
 
 function draw() {
-    
-
 
     switch (mode){
 
@@ -51,16 +36,16 @@ function draw() {
         case "live":
             drawLiveMode()
             break;
+        case "letter":
+            drawLetterMode()
+            break;
 
     }
-
-    let points = font.textToPoints(" ", 50, 50,80, { sampleFactor:  0.2})
-    points.forEach(p =>  {     
-        point(p.x, p.y);
-
-    });
-
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                    Mode                                    */
+/* -------------------------------------------------------------------------- */
 
 function drawPointMode(){
     background(220);
@@ -80,6 +65,15 @@ function drawLiveMode(){
     line(0, 200, 400, 200);
     line(200, 0, 200, 400);
 
+}
+
+function drawLetterMode(){
+
+    background("#A9D300");
+
+    points.forEach(p =>  {
+        point(p.x, p.y);
+    });
 }
 
 
@@ -118,4 +112,24 @@ function toggleMode(){
         print("error mode")
     }
 
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    Utils                                   */
+/* -------------------------------------------------------------------------- */
+function addAllElementArrayToAnotherArray(arraySrc, arrayDest){
+    arraySrc.forEach(element => {
+        arrayDest.push(element)
+    })
+}
+
+
+function createLetterPoint(string, arrayDest){
+    let s = 100
+
+    //TODO Separate letter string
+    addAllElementArrayToAnotherArray(font.textToPoints("T", 50, 200,s, { sampleFactor:  0.2}), arrayDest)
+    addAllElementArrayToAnotherArray(font.textToPoints("A", 50 + s / 2, 200,s, { sampleFactor:  0.2}), arrayDest)
+    console.log(points)
 }
