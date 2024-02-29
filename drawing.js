@@ -1,7 +1,6 @@
 let savedPoint = []
 
-let curentFrame = 0
-let frameRate = 4
+let circleSize = 20
 
 function setup() {
   createCanvas(400, 400);
@@ -13,7 +12,7 @@ function draw() {
 
     let index = 0
     for (let currentPoint of savedPoint) {
-        circle(currentPoint[0], currentPoint[1], 100);
+        circle(currentPoint[0], currentPoint[1], circleSize);
         text(index, currentPoint[0], currentPoint[1]);
         // console.log("s")
         index += 1
@@ -29,8 +28,8 @@ function mouseDragged() {
   addPoint(mouseX, mouseY)
 }
 
-function mouseRelease(){
-    
+function mouseReleased(){
+  addPoint(mouseX, mouseY)
 }
 
 function resetCanvas(){
