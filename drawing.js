@@ -16,16 +16,32 @@ let font;
 /* -------------------------------------------------------------------------- */
 
 function preload() {
-  font = loadFont('Inconsolata.ttf');
+  font = loadFont('font.ttf');
 }
 
 function setup() {
   createCanvas(400, 400);
+  textSize(12);
+
+
+  let points = font.textToPoints("tsasa a d", 50, 50,80, { sampleFactor:  0.2})
+  let previousPointX = 0
+  points.forEach(p =>  {
+    //   point(p.x, p.y);
+
+
+      if (p.x - previousPointX > 40 ) {
+          console.log("new space")
+      }
+
+      previousPointX = p.x
+
+  });
 }
 
 function draw() {
+    
 
-    font.textToPoints("t", 0, 0,)
 
     switch (mode){
 
@@ -37,6 +53,12 @@ function draw() {
             break;
 
     }
+
+    let points = font.textToPoints(" ", 50, 50,80, { sampleFactor:  0.2})
+    points.forEach(p =>  {     
+        point(p.x, p.y);
+
+    });
 
 }
 
@@ -74,6 +96,7 @@ function mouseDragged() {
 }
 
 function mouseReleased(){
+    console.log(mouseX, mouseY)
   addPoint(mouseX, mouseY)
 }
 
