@@ -9,15 +9,23 @@ let circleSize = 20
 let mode = "point"
 
 
+let font;
+
 /* -------------------------------------------------------------------------- */
 /*                                   Draw P5                                  */
 /* -------------------------------------------------------------------------- */
+
+function preload() {
+  font = loadFont('Inconsolata.ttf');
+}
 
 function setup() {
   createCanvas(400, 400);
 }
 
 function draw() {
+
+    font.textToPoints("t", 0, 0,)
 
     switch (mode){
 
@@ -46,6 +54,9 @@ function drawPointMode(){
 
 function drawLiveMode(){
     background("#A9D3FF");
+
+    line(0, 200, 400, 200);
+    line(200, 0, 200, 400);
 
 }
 
