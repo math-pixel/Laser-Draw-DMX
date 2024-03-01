@@ -13,8 +13,14 @@
 
     <input type="text" id="TEXT">
     <input type="button" id="textValidation" value="OK">
+
+    QLC+ IP:
+    <input type="text" id="qlcplusIP" value="127.0.0.1:9999"/>
+    <input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);">
+    <div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
 </body>
 
+<script src="qlcWebsocket.js"></script>
 <script src="drawing.js"></script>
 
 <script>

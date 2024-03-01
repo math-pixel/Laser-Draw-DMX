@@ -6,8 +6,9 @@
 let savedPoint = []
 let circleSize = 20
 
-let mode = "letter"
+let mode = "live"
 
+let mouseOverCanvas;
 
 let font;
 let sizeLetter = 100
@@ -58,12 +59,28 @@ function drawPointMode(){
     }
 }
 
+let frameRate = 2
+let currentFrame = 0
 function drawLiveMode(){
     background("#A9D3FF");
 
     line(0, 200, 400, 200);
     line(200, 0, 200, 400);
 
+    
+    let xDMX = Math.floor(map_range(mouseX, 0, 400, 33, 96))
+    let yDMX = Math.floor(map_range(mouseY, 0, 400, 33, 96))
+
+    
+    // if (currentFrame % frameRate == 0) {
+        if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400) {
+            mySetSimpleDeskChannel(6, xDMX)            
+            mySetSimpleDeskChannel(7, yDMX)
+            currentFrame = 0
+        }
+    // }
+    // currentFrame += 1 
+    // setSimpleDeskChannel(7, yDMX)
 }
 
 function drawLetterMode(){
@@ -110,7 +127,6 @@ function toggleMode(){
     }else{
         print("error mode")
     }
-
 }
 
 
@@ -130,4 +146,8 @@ function createLetterPoint(myString, arrayDest){
     addAllElementArrayToAnotherArray(font.textToPoints(myString, 50, 200, sizeLetter, { sampleFactor:  0.2}), arrayDest)
     // addAllElementArrayToAnotherArray(font.textToPoints("A", 50 + sizeLetter / 2, 200,sizeLetter, { sampleFactor:  0.2}), arrayDest)
     console.log(arrayDest)
+}
+
+function map_range(value, low1, high1, low2, high2) {
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
