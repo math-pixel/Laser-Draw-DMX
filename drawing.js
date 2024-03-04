@@ -57,12 +57,19 @@ function drawPointMode(){
         circle(currentPoint[0], currentPoint[1], circleSize);
         text(index, currentPoint[0], currentPoint[1]);
         // console.log("s")
+
+
+        // SEND POINT in DMX
+        let xDMX = Math.floor(map_range(currentPoint[0], 0, 400, 33, 96))
+        let yDMX = Math.floor(map_range(currentPoint[1], 0, 400, 33, 96))
+        mySetSimpleDeskChannel(6, xDMX)            
+        mySetSimpleDeskChannel(7, yDMX)
+        
+
         index += 1
     }
 }
 
-let frameRate = 2
-let currentFrame = 0
 function drawLiveMode(){
     background("#A9D3FF");
 
@@ -70,19 +77,15 @@ function drawLiveMode(){
     line(200, 0, 200, 400);
 
     
+    // SEND DMX
     let xDMX = Math.floor(map_range(mouseX, 0, 400, 33, 96))
     let yDMX = Math.floor(map_range(mouseY, 0, 400, 33, 96))
 
-    
-    // if (currentFrame % frameRate == 0) {
-        if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400) {
-            mySetSimpleDeskChannel(6, xDMX)            
-            mySetSimpleDeskChannel(7, yDMX)
-            currentFrame = 0
-        }
-    // }
-    // currentFrame += 1 
-    // setSimpleDeskChannel(7, yDMX)
+    if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400) {
+        mySetSimpleDeskChannel(6, xDMX)            
+        mySetSimpleDeskChannel(7, yDMX)
+    }
+
 }
 
 function drawLetterMode(){
@@ -91,6 +94,13 @@ function drawLetterMode(){
 
     points.forEach(p =>  {
         point(p.x, p.y);
+
+        // SEND POINT in DMX
+        let xDMX = Math.floor(map_range(p.x, 0, 400, 33, 96))
+        let yDMX = Math.floor(map_range(p.y, 0, 400, 33, 96))
+        mySetSimpleDeskChannel(6, xDMX)            
+        mySetSimpleDeskChannel(7, yDMX)
+
     });
 }
 
