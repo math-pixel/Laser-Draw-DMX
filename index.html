@@ -9,7 +9,12 @@
 <body>
 
     <input type="button" id="resetButton" value="Reset Draw">
-    <input type="button" id="ToggleModeButton" value="Toggle Mode">
+    <!-- <input type="button" id="ToggleModeButton" value="Toggle Mode"> -->
+    <select id="ToggleModeButton">
+        <option value="point" selected>Point</option>
+        <option value="live">Live</option>
+        <option value="letter">Letter</option>
+    </select>
 
     <input type="text" id="TEXT">
     <input type="button" id="textValidation" value="OK">
@@ -28,13 +33,17 @@
     buttonReset.addEventListener("click", resetCanvas);
 
     const ToggleModeButton = document.querySelector("#ToggleModeButton");
-    ToggleModeButton.addEventListener("click", toggleMode);
+    ToggleModeButton.addEventListener("change", (e) => {
+        savedPoint = []
+        mode = e.target.value 
+        // console.log(e.target.value)
+    } );
 
     const validTextButton = document.querySelector("#textValidation");
     
     validTextButton.addEventListener("click", () => { 
         let valueText = document.querySelector("#TEXT").value
-        createLetterPoint(valueText, points) 
+        createLetterPoint(valueText, savedPoint) 
     });
 </script>
 

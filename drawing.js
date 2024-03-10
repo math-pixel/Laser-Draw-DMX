@@ -4,15 +4,15 @@
 /* -------------------------------------------------------------------------- */
 
 let savedPoint = []
+console.log(savedPoint.length)
 let circleSize = 20
 
-let mode = "live"
+let mode = "point"
 
 let mouseOverCanvas;
 
 let font;
 let sizeLetter = 100
-let points = []
 /* -------------------------------------------------------------------------- */
 /*                                   Draw P5                                  */
 /* -------------------------------------------------------------------------- */
@@ -59,11 +59,11 @@ function drawPointMode(){
         // console.log("s")
 
 
-        // SEND POINT in DMX
-        let xDMX = Math.floor(map_range(currentPoint[0], 0, 400, 33, 96))
-        let yDMX = Math.floor(map_range(currentPoint[1], 0, 400, 33, 96))
-        mySetSimpleDeskChannel(6, xDMX)            
-        mySetSimpleDeskChannel(7, yDMX)
+        // // SEND POINT in DMX
+        // let xDMX = Math.floor(map_range(currentPoint[0], 0, 400, 33, 96))
+        // let yDMX = Math.floor(map_range(currentPoint[1], 0, 400, 33, 96))
+        // mySetSimpleDeskChannel(6, xDMX)            
+        // mySetSimpleDeskChannel(7, yDMX)
         
 
         index += 1
@@ -77,13 +77,10 @@ function drawLiveMode(){
     line(200, 0, 200, 400);
 
     
-    // SEND DMX
-    let xDMX = Math.floor(map_range(mouseX, 0, 400, 33, 96))
-    let yDMX = Math.floor(map_range(mouseY, 0, 400, 33, 96))
 
-    if (mouseX > 0 && mouseX < 400 && mouseY > 0 && mouseY < 400) {
-        mySetSimpleDeskChannel(6, xDMX)            
-        mySetSimpleDeskChannel(7, yDMX)
+    savedPoint[0] = {
+        x: mouseX,
+        y: mouseY
     }
 
 }
@@ -92,17 +89,40 @@ function drawLetterMode(){
 
     background("#A9D300");
 
-    points.forEach(p =>  {
+    savedPoint.forEach(p =>  {
         point(p.x, p.y);
-
-        // SEND POINT in DMX
-        let xDMX = Math.floor(map_range(p.x, 0, 400, 33, 96))
-        let yDMX = Math.floor(map_range(p.y, 0, 400, 33, 96))
-        mySetSimpleDeskChannel(6, xDMX)            
-        mySetSimpleDeskChannel(7, yDMX)
 
     });
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                  SEND DMX                                  */
+/* -------------------------------------------------------------------------- */
+
+function sendPointPositionDMX(){
+
+    let indexArray = 0
+    setInterval(() => {
+
+        if (savedPoint.length > 0) {
+
+            // SEND POINT in DMX
+            let xDMX = Math.floor(map_range(savedPoint[indexArray].x, 0, 400, 33, 96))
+            let yDMX = Math.floor(map_range(savedPoint[indexArray].y, 0, 400, 33, 96))
+            mySetSimpleDeskChannel(6, xDMX)            
+            mySetSimpleDeskChannel(7, yDMX)
+            indexArray += 1
+
+
+            if (indexArray >= savedPoint.length) {
+                indexArray = 0
+            }
+        }
+
+    }, 1000)
+
+}
+sendPointPositionDMX()
 
 
 /* -------------------------------------------------------------------------- */
