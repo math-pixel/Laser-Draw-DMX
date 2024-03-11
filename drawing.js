@@ -34,6 +34,7 @@ function setup() {
 
 function draw() {
 
+    //* switch Mode
     switch (mode){
         case "point":
             drawPointMode()
@@ -47,6 +48,7 @@ function draw() {
 
     }
 
+    //* feedBack nb point draw
     document.getElementById("pointList").innerHTML = "Nb point = " + savedPoint.length
 }
 
@@ -82,6 +84,7 @@ function drawLetterMode(){
 
     background("#A9D300");
 
+    //* draw point
     savedPoint.forEach(p =>  {
         point(p.x, p.y);
 
@@ -94,19 +97,24 @@ function drawLetterMode(){
 
 function sendPointPositionDMX(){
 
+    //* delay send dmx data
     setTimeout(() => {
         
         if (savedPoint.length > 0) {
     
             // console.log("index saved Point : ", indexArray)
-            // SEND POINT in DMX
+
+            //* Mapping point of canvas
             let xDMX = Math.floor(map_range(savedPoint[indexArray].x, 0, 400, 33, 96))
             let yDMX = Math.floor(map_range(savedPoint[indexArray].y, 0, 400, 33, 96))
+            
+            //* SEND POINT in DMX
             mySetSimpleDeskChannel(6, xDMX)            
             mySetSimpleDeskChannel(7, yDMX)
             indexArray += 1
     
     
+            //* reset index if it's out of range
             if (indexArray >= savedPoint.length) {
                 indexArray = 0
             }
@@ -141,20 +149,6 @@ function resetCanvas(){
 }
 
 
-/* -------------------------------------------------------------------------- */
-/*                               Logic Function                               */
-/* -------------------------------------------------------------------------- */
-
-function toggleMode(){
-    if (mode == "point") {
-        mode = "live"  
-    }else if(mode == "live"){
-        mode = "point"
-    }else{
-        print("error mode")
-    }
-}
-
 
 /* -------------------------------------------------------------------------- */
 /*                                    Utils                                   */
@@ -165,7 +159,10 @@ function addAllElementArrayToAnotherArray(arraySrc, arrayDest){
     })
 }
 
-
+/* -------------------------------------------------------------------------- */
+/*                Get all point ( in function of sampleFactor )               */
+/*                       of a text and set it on a array                      */
+/* -------------------------------------------------------------------------- */
 function createLetterPoint(myString, arrayDest){
     arrayDest.length = 0
     addAllElementArrayToAnotherArray(font.textToPoints(myString, 50, 200, sizeLetter, { sampleFactor:  0.2}), arrayDest)
