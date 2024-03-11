@@ -46,7 +46,7 @@ function draw() {
 
     }
 
-    document.getElementById("pointList").innerHTML = savedPoint
+    document.getElementById("pointList").innerHTML = "Nb point = " + savedPoint.length
 }
 
 /* -------------------------------------------------------------------------- */
