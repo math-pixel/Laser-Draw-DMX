@@ -47,6 +47,16 @@
         let valueText = document.querySelector("#TEXT").value
         createLetterPoint(valueText, savedPoint) 
     });
+
+    window.onload = (event) => {
+        let ip = localStorage.getItem("ipQLC");
+        if(ip != null){
+            document.getElementById('qlcplusIP').value = ip
+        }else{
+            console.warn("not ip in storage")
+        }
+        
+    }
 </script>
 
 </html>

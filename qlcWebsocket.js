@@ -131,6 +131,7 @@ function vcFrameControl(frIDObjName, frOperation)
 
 function connectToWebSocket(host) {
   var url = 'ws://' + host + '/qlcplusWS';
+  localStorage.setItem("ipQLC", host )
   websocket = new WebSocket(url);
   // update the host information
   wshost = "http://" + host;
