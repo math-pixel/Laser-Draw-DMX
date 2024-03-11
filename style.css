@@ -1,71 +1,106 @@
-
 body {
-    background-color: #45484d;
-    color: white;
-    font:normal 18px/1.2em sans-serif;
-  }
-  
-  iframe {
-    position: absolute;
-    display: block;
-  
-    height: 100%;
-    width: 100%;
-  }
-  
-  #prjBox {
-    position: absolute;
-    width: 50%;
-    height: 70%;
-    margin-top: 0px;
-    margin-left: 47%;
-  }
-  
-  .apiTable {
-    border-collapse: collapse;
-  }
-  
-  .apiTable th {
-    font-size: 18px;
-    color: white;
-    border: solid 1px white;
-  }
-  
-  .apiTable tr {
-    font-size: 14px;
-    border: solid 1px white;
-  }
-  
-  .apiTable td {
-    border: solid 1px white;
-    padding: 2px 5px 2px 5px;
-    margin: 0 5px 0 5px;
-  }
-  
-  .apiButton {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    font-weight: bold;
-    color: black;
-    cursor:pointer;
-    height: 30px;
-    padding: 0 10px 0 10px;
-    background: #7497b6;
-  }
-  
-  .apiButton:hover {
-    background: #87b1d5;
-  }
-  
-  .resultBox {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    color: #000;
-    width: 150px;
-    height: 30px;
-    background-color: #aaaaaa;
-    border-radius: 6px;
-  }
-  
+  background-color: #DFF5FF;
+  color: #5356FF;
+  font: normal 18px/1.2em sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container{
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.module{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moduleColumn{
+  flex-direction: column;
+}
+
+.left{
+  align-items: end;
+  text-align: end;
+}
+
+.right{
+  text-align: start;
+  align-items: start;
+  justify-content: space-evenly;
+}
+
+
+iframe {
+  position: absolute;
+  display: block;
+
+  height: 100%;
+  width: 100%;
+}
+
+#prjBox {
+  position: absolute;
+  width: 50%;
+  height: 70%;
+  margin-top: 0px;
+  margin-left: 47%;
+}
+
+.apiTable {
+  border-collapse: collapse;
+}
+
+.apiTable th {
+  font-size: 18px;
+  color: white;
+  border: solid 1px white;
+}
+
+.apiTable tr {
+  font-size: 14px;
+  border: solid 1px white;
+}
+
+.apiTable td {
+  border: solid 1px white;
+  padding: 2px 5px 2px 5px;
+  margin: 0 5px 0 5px;
+}
+
+.apiButton {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  height: 30px;
+  padding: 0 10px 0 10px;
+  background: #7497b6;
+}
+
+.apiButton:hover {
+  background: #87b1d5;
+}
+
+.resultBox {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #000;
+  width: 150px;
+  height: 30px;
+  background-color: #aaaaaa;
+  border-radius: 6px;
+}

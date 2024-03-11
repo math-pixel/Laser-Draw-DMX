@@ -26,10 +26,12 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(400, 400);
+    let cnv = createCanvas(400, 400);
     textSize(12);
-
     frameRate(24);
+    cnv.parent('container')
+    cnv.style("grid-column",  "2")
+    cnv.style("grid-row", "2")
 }
 
 function draw() {
