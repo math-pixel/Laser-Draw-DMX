@@ -23,6 +23,8 @@
     <input type="text" id="qlcplusIP" value="127.0.0.1:9999"/>
     <input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);">
     <div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
+    <input type="text" id="waitingTimer" value="250">
+    <input type="button" id="buttonValidationTimeout" value="set Timout">
     <div id="pointList"></div>
 </body>
 
@@ -57,6 +59,11 @@
         }
         
     }
+
+    document.getElementById("buttonValidationTimeout").addEventListener("click", (e) => {
+        
+        timeTimeout = document.getElementById("waitingTimer").value
+    })
 </script>
 
 </html>

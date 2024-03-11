@@ -16,6 +16,8 @@ let sizeLetter = 100
 
 let indexArray = 0
 
+let timeTimeout = 250
+
 /* -------------------------------------------------------------------------- */
 /*                                   Draw P5                                  */
 /* -------------------------------------------------------------------------- */
@@ -102,10 +104,10 @@ function drawLetterMode(){
 
 function sendPointPositionDMX(){
 
-    setInterval(() => {
-
+    setTimeout(() => {
+        
         if (savedPoint.length > 0) {
-
+    
             console.log("index saved Point : ", indexArray)
             // SEND POINT in DMX
             let xDMX = Math.floor(map_range(savedPoint[indexArray].x, 0, 400, 33, 96))
@@ -114,15 +116,16 @@ function sendPointPositionDMX(){
             mySetSimpleDeskChannel(6, xDMX)            
             mySetSimpleDeskChannel(7, yDMX)
             indexArray += 1
-
-
+    
+    
             if (indexArray >= savedPoint.length) {
                 indexArray = 0
             }
         }
-
-    }, 250)
-
+        console.log("loop")
+        sendPointPositionDMX()
+    }, timeTimeout);
+    
 }
 sendPointPositionDMX()
 
