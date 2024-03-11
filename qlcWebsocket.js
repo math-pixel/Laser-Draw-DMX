@@ -73,7 +73,7 @@ function setSimpleDeskChannel(addressObjName, channelValueObjName)
 
 function mySetSimpleDeskChannel(addressDMX, valueDMX)
 {
-  // console.log("appel fn", addressDMX, valueDMX)
+  console.log("send data channel : ", addressDMX, " value : ", valueDMX)
   if (isConnected === true)
     websocket.send("CH|" + addressDMX + "|" + valueDMX);
   else

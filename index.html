@@ -23,6 +23,7 @@
     <input type="text" id="qlcplusIP" value="127.0.0.1:9999"/>
     <input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);">
     <div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
+    <div id="pointList"></div>
 </body>
 
 <script src="qlcWebsocket.js"></script>
@@ -35,6 +36,7 @@
     const ToggleModeButton = document.querySelector("#ToggleModeButton");
     ToggleModeButton.addEventListener("change", (e) => {
         savedPoint = []
+        indexArray = 0
         mode = e.target.value 
         // console.log(e.target.value)
     } );

@@ -13,6 +13,9 @@ let mouseOverCanvas;
 
 let font;
 let sizeLetter = 100
+
+let indexArray = 0
+
 /* -------------------------------------------------------------------------- */
 /*                                   Draw P5                                  */
 /* -------------------------------------------------------------------------- */
@@ -31,7 +34,6 @@ function setup() {
 function draw() {
 
     switch (mode){
-
         case "point":
             drawPointMode()
             break;
@@ -43,6 +45,8 @@ function draw() {
             break;
 
     }
+
+    document.getElementById("pointList").innerHTML = savedPoint
 }
 
 /* -------------------------------------------------------------------------- */
@@ -54,8 +58,8 @@ function drawPointMode(){
 
     let index = 0
     for (let currentPoint of savedPoint) {
-        circle(currentPoint[0], currentPoint[1], circleSize);
-        text(index, currentPoint[0], currentPoint[1]);
+        circle(currentPoint.x, currentPoint.y, circleSize);
+        text(index, currentPoint.x, currentPoint.y);
         // console.log("s")
 
 
@@ -78,10 +82,7 @@ function drawLiveMode(){
 
     
 
-    savedPoint[0] = {
-        x: mouseX,
-        y: mouseY
-    }
+    savedPoint[0] = {x: mouseX, y: mouseY}
 
 }
 
@@ -101,14 +102,15 @@ function drawLetterMode(){
 
 function sendPointPositionDMX(){
 
-    let indexArray = 0
     setInterval(() => {
 
         if (savedPoint.length > 0) {
 
+            console.log("index saved Point : ", indexArray)
             // SEND POINT in DMX
             let xDMX = Math.floor(map_range(savedPoint[indexArray].x, 0, 400, 33, 96))
             let yDMX = Math.floor(map_range(savedPoint[indexArray].y, 0, 400, 33, 96))
+            console.log(" savepoint : ", savedPoint[indexArray])
             mySetSimpleDeskChannel(6, xDMX)            
             mySetSimpleDeskChannel(7, yDMX)
             indexArray += 1
@@ -119,7 +121,7 @@ function sendPointPositionDMX(){
             }
         }
 
-    }, 1000)
+    }, 250)
 
 }
 sendPointPositionDMX()
@@ -130,7 +132,9 @@ sendPointPositionDMX()
 /* -------------------------------------------------------------------------- */
 
 function addPoint(x, y){
-    savedPoint.push([x,y])
+    if (x > 0 && x < 400 && y > 0 && y < 400) {
+        savedPoint.push({ x: x, y: y })
+    }
 }
 
 function mouseDragged() {
@@ -181,5 +185,6 @@ function createLetterPoint(myString, arrayDest){
 }
 
 function map_range(value, low1, high1, low2, high2) {
+    console.log(typeof(value))
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
