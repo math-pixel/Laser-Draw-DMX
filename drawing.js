@@ -4,7 +4,6 @@
 /* -------------------------------------------------------------------------- */
 
 let savedPoint = []
-console.log(savedPoint.length)
 let circleSize = 20
 
 let mode = "point"
@@ -61,16 +60,7 @@ function drawPointMode(){
     let index = 0
     for (let currentPoint of savedPoint) {
         circle(currentPoint.x, currentPoint.y, circleSize);
-        text(index, currentPoint.x, currentPoint.y);
-        // console.log("s")
-
-
-        // // SEND POINT in DMX
-        // let xDMX = Math.floor(map_range(currentPoint[0], 0, 400, 33, 96))
-        // let yDMX = Math.floor(map_range(currentPoint[1], 0, 400, 33, 96))
-        // mySetSimpleDeskChannel(6, xDMX)            
-        // mySetSimpleDeskChannel(7, yDMX)
-        
+        text(index, currentPoint.x, currentPoint.y);        
 
         index += 1
     }
@@ -108,11 +98,10 @@ function sendPointPositionDMX(){
         
         if (savedPoint.length > 0) {
     
-            console.log("index saved Point : ", indexArray)
+            // console.log("index saved Point : ", indexArray)
             // SEND POINT in DMX
             let xDMX = Math.floor(map_range(savedPoint[indexArray].x, 0, 400, 33, 96))
             let yDMX = Math.floor(map_range(savedPoint[indexArray].y, 0, 400, 33, 96))
-            console.log(" savepoint : ", savedPoint[indexArray])
             mySetSimpleDeskChannel(6, xDMX)            
             mySetSimpleDeskChannel(7, yDMX)
             indexArray += 1
@@ -122,7 +111,6 @@ function sendPointPositionDMX(){
                 indexArray = 0
             }
         }
-        console.log("loop")
         sendPointPositionDMX()
     }, timeTimeout);
     
@@ -145,7 +133,6 @@ function mouseDragged() {
 }
 
 function mouseReleased(){
-    console.log(mouseX, mouseY)
     addPoint(mouseX, mouseY)
 }
 
@@ -180,14 +167,11 @@ function addAllElementArrayToAnotherArray(arraySrc, arrayDest){
 
 
 function createLetterPoint(myString, arrayDest){
-    console.log(typeof(myString), arrayDest)
     arrayDest.length = 0
     addAllElementArrayToAnotherArray(font.textToPoints(myString, 50, 200, sizeLetter, { sampleFactor:  0.2}), arrayDest)
     // addAllElementArrayToAnotherArray(font.textToPoints("A", 50 + sizeLetter / 2, 200,sizeLetter, { sampleFactor:  0.2}), arrayDest)
-    console.log(arrayDest)
 }
 
 function map_range(value, low1, high1, low2, high2) {
-    console.log(typeof(value))
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
